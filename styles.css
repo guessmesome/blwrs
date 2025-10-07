@@ -118,7 +118,7 @@ body {
 
 .welcome-text {
     position: absolute;
-    top: 596px;
+    top: 540px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
@@ -144,7 +144,7 @@ body {
 
 .app-title {
     position: absolute;
-    top: 650px;
+    top: 590px;
     left: 50%;
     transform: translateX(-50%);
     font-size: 24px;
@@ -155,7 +155,7 @@ body {
 
 .subtitle {
     position: absolute;
-    top: 685px;
+    top: 625px;
     left: 50%;
     transform: translateX(-50%);
     font-size: 16px;
@@ -167,7 +167,7 @@ body {
 
 #slide1 .continue-btn {
     position: absolute;
-    top: 715px;
+    top: 660px;
     left: 50%;
     transform: translateX(-50%);
     margin: 0;
@@ -189,7 +189,7 @@ body {
 
 .match-title {
     position: absolute;
-    top: 596px;
+    top: 540px;
     left: 50%;
     transform: translateX(-50%);
     font-size: 28px;
@@ -201,7 +201,7 @@ body {
 
 .taste-title {
     position: absolute;
-    top: 638px;
+    top: 580px;
     left: 50%;
     transform: translateX(-50%);
     font-size: 28px;
@@ -228,7 +228,7 @@ body {
 
 .match-subtitle {
     position: absolute;
-    top: 685px;
+    top: 625px;
     left: 50%;
     transform: translateX(-50%);
     font-size: 16px;
@@ -241,7 +241,7 @@ body {
 
 #slide2 .continue-btn {
     position: absolute;
-    top: 715px;
+    top: 660px;
     left: 50%;
     transform: translateX(-50%);
     margin: 0;
@@ -255,7 +255,7 @@ body {
 
 .join-text {
     position: absolute;
-    top: 596px;
+    top: 540px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
@@ -273,7 +273,7 @@ body {
 
 #slide3 .email-input {
     position: absolute;
-    top: 656px;
+    top: 600px;
     left: 50%;
     transform: translateX(-50%);
     width: 88.5%;
@@ -300,7 +300,7 @@ body {
 
 #slide3 .continue-btn {
     position: absolute;
-    top: 716px;
+    top: 660px;
     left: 50%;
     transform: translateX(-50%);
     margin: 0;
@@ -393,7 +393,7 @@ body {
 /* Slide 4 Styles */
 .warning-title {
     position: absolute;
-    top: 600px;
+    top: 540px;
     left: 50%;
     transform: translateX(-50%);
     font-size: 25px;
@@ -405,7 +405,7 @@ body {
 
 .age-title {
     position: absolute;
-    top: 638px;
+    top: 580px;
     left: 50%;
     transform: translateX(-50%);
     font-size: 28px;
@@ -432,7 +432,7 @@ body {
 
 .age-subtitle {
     position: absolute;
-    top: 680px;
+    top: 620px;
     left: 50%;
     transform: translateX(-50%);
     font-size: 16px;
@@ -445,7 +445,7 @@ body {
 
 #slide4 .continue-btn {
     position: absolute;
-    top: 715px;
+    top: 660px;
     left: 50%;
     transform: translateX(-50%);
     margin: 0;
