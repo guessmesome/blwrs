@@ -1,0 +1,565 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+    background: #7945E5;
+}
+
+.app-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh; /* Dynamic viewport height for mobile */
+    margin: 0;
+    overflow: hidden;
+    background: #7945E5;
+}
+
+.slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transform: translateX(100%);
+    transition: all 0.5s ease-in-out;
+}
+
+.slide.active {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: -1;
+}
+
+.bg1 {
+    background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
+    background-image: url('images/bg1.jpg');
+    background-blend-mode: overlay;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+.bg2 {
+    background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
+    background-image: url('images/bg2.jpg');
+    background-blend-mode: overlay;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+.bg3 {
+    background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
+    background-image: url('images/bg3.jpg');
+    background-blend-mode: overlay;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+.bg4 {
+    background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
+    background-image: url('images/bg4.jpg');
+    background-blend-mode: overlay;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+.content {
+    padding: 40px 30px;
+    text-align: center;
+    color: white;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 1;
+}
+
+/* Slide 1 Styles */
+#slide1 .content {
+    position: relative;
+    padding: 0;
+}
+
+.bottom-content {
+    position: absolute;
+    width: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+}
+
+.welcome-text {
+    position: absolute;
+    top: 596px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    white-space: nowrap;
+}
+
+.welcome-part {
+    font-size: 27px;
+    font-weight: bold;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+}
+
+.logo-inline {
+    width: 173px;
+    height: 21.5px; 
+    display: inline-block;
+}
+
+.app-title {
+    position: absolute;
+    top: 650px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0;
+    white-space: nowrap;
+}
+
+.subtitle {
+    position: absolute;
+    top: 685px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 16px;
+    font-weight: 300;
+    margin: 0;
+    opacity: 0.9;
+    white-space: nowrap;
+}
+
+#slide1 .continue-btn {
+    position: absolute;
+    top: 715px;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+}
+
+/* Slide 2 Styles */
+#slide2 .content {
+    position: relative;
+    padding: 0;
+}
+
+.slide2-content {
+    position: absolute;
+    width: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+}
+
+.match-title {
+    position: absolute;
+    top: 596px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 28px;
+    font-weight: bold;
+    margin: 0;
+    color: white;
+    white-space: nowrap;
+}
+
+.taste-title {
+    position: absolute;
+    top: 638px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 28px;
+    font-weight: bold;
+    margin: 0;
+    color: white;
+    white-space: nowrap;
+}
+
+.taste-highlight {
+    color: white;
+    font-weight: bold;
+    text-shadow: 
+        3px 3px 0px #82030A,
+        -1.5px -1.5px 0px #82030A,
+        1.5px -1.5px 0px #82030A,
+        -1.5px 1.5px 0px #82030A,
+        1.5px 1.5px 0px #82030A,
+        0px -1.5px 0px #82030A,
+        0px 1.5px 0px #82030A,
+        -1.5px 0px 0px #82030A,
+        1.5px 0px 0px #82030A;
+}
+
+.match-subtitle {
+    position: absolute;
+    top: 685px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 16px;
+    font-weight: 300;
+    margin: 0;
+    opacity: 0.9;
+    color: white;
+    white-space: nowrap;
+}
+
+#slide2 .continue-btn {
+    position: absolute;
+    top: 715px;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+}
+
+/* Slide 3 Styles */
+#slide3 .content {
+    position: relative;
+    padding: 0;
+}
+
+.join-text {
+    position: absolute;
+    top: 596px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    white-space: nowrap;
+}
+
+.join-part {
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+}
+
+#slide3 .email-input {
+    position: absolute;
+    top: 656px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 88.5%;
+    height: 50px;
+    border: 2px solid white;
+    border-radius: 25px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    color: white;
+    font-size: 16px;
+    padding: 0 20px;
+    text-align: center;
+    margin: 0;
+}
+
+#slide3 .email-input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+#slide3 .email-input:focus {
+    outline: none;
+    border-color: white;
+}
+
+#slide3 .continue-btn {
+    position: absolute;
+    top: 716px;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+}
+
+/* Slide 4 Styles */
+#slide4 .content {
+    position: relative;
+    padding: 0;
+}
+
+/* Slide 3 Styles */
+.join-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #00BFFF;
+}
+
+.join-subtitle {
+    font-size: 14px;
+    font-weight: 300;
+    margin-bottom: 30px;
+    opacity: 0.9;
+    line-height: 1.4;
+}
+
+.preview-images {
+    margin-bottom: 30px;
+}
+
+.preview-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+    justify-content: center;
+}
+
+.preview-item {
+    width: 80px;
+    height: 80px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.join-section {
+    margin-bottom: 30px;
+    width: 100%;
+}
+
+.join-header {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.logo-small {
+    width: 24px;
+    height: 24px;
+}
+
+.email-input {
+    width: 88.5%;
+    height: 50px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 25px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    color: white;
+    font-size: 16px;
+    padding: 0 20px;
+    text-align: center;
+}
+
+.email-input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.email-input:focus {
+    outline: none;
+    border-color: #EC4899;
+}
+
+/* Slide 4 Styles */
+.warning-title {
+    position: absolute;
+    top: 600px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 25px;
+    font-weight: bold;
+    margin: 0;
+    color: white;
+    white-space: nowrap;
+}
+
+.age-title {
+    position: absolute;
+    top: 638px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 28px;
+    font-weight: bold;
+    margin: 0;
+    color: white;
+    white-space: nowrap;
+}
+
+.age-highlight {
+    color: white;
+    font-weight: bold;
+    text-shadow: 
+        3px 3px 0px #82030A,
+        -1.5px -1.5px 0px #82030A,
+        1.5px -1.5px 0px #82030A,
+        -1.5px 1.5px 0px #82030A,
+        1.5px 1.5px 0px #82030A,
+        0px -1.5px 0px #82030A,
+        0px 1.5px 0px #82030A,
+        -1.5px 0px 0px #82030A,
+        1.5px 0px 0px #82030A;
+}
+
+.age-subtitle {
+    position: absolute;
+    top: 680px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 16px;
+    font-weight: 300;
+    margin: 0;
+    opacity: 0.9;
+    color: white;
+    white-space: nowrap;
+}
+
+#slide4 .continue-btn {
+    position: absolute;
+    top: 715px;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+}
+
+.age-verification-btn {
+    text-transform: none !important;
+}
+
+/* Continue Button */
+.continue-btn {
+    width: 88.5%;
+    height: 50px;
+    background: white;
+    border: none;
+    border-radius: 25px;
+    color: #B80200;
+    font-size: 16px;
+    font-weight: 300;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: auto;
+    margin-bottom: 40px;
+}
+
+.continue-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255, 255, 255, 0.3);
+}
+
+.continue-btn:active {
+    transform: translateY(0);
+}
+
+.continue-btn:disabled,
+.continue-btn.disabled {
+    background: rgba(255, 255, 255, 0.5);
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.continue-btn:disabled:hover,
+.continue-btn.disabled:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+/* Small mobile screens */
+@media screen and (max-width: 375px) {
+    .welcome-part, .join-part {
+        font-size: 18px !important;
+    }
+    
+    .app-title, .taste-title, .age-title {
+        font-size: 22px !important;
+    }
+    
+    .warning-title {
+        font-size: 24px !important;
+    }
+    
+    .continue-btn {
+        font-size: 14px !important;
+        height: 45px !important;
+    }
+    
+    .email-input {
+        font-size: 14px !important;
+        height: 45px !important;
+    }
+}
+
+/* Very small screens */
+@media screen and (max-width: 320px) {
+    .welcome-part, .join-part {
+        font-size: 16px !important;
+    }
+    
+    .app-title, .taste-title, .age-title {
+        font-size: 20px !important;
+    }
+    
+    .warning-title {
+        font-size: 22px !important;
+    }
+}
+
+/* Mobile-first responsive design */
+@media screen and (max-height: 700px) {
+    /* Scale down for short screens */
+    .welcome-text { top: 480px !important; }
+    .app-title { top: 520px !important; }
+    .subtitle { top: 550px !important; }
+    #slide1 .continue-btn { top: 580px !important; }
+    
+    .match-title { top: 480px !important; }
+    .taste-title { top: 510px !important; }
+    .match-subtitle { top: 550px !important; }
+    #slide2 .continue-btn { top: 580px !important; }
+    
+    .join-text { top: 480px !important; }
+    #slide3 .email-input { top: 520px !important; }
+    #slide3 .continue-btn { top: 580px !important; }
+    
+    .warning-title { top: 480px !important; }
+    .age-title { top: 510px !important; }
+    .age-subtitle { top: 540px !important; }
+    #slide4 .continue-btn { top: 580px !important; }
+}
+
+@media screen and (min-width: 391px) {
+    .app-container {
+        max-width: 390px;
+        margin: 0 auto;
+    }
+}
