@@ -1,87 +1,136 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="ru">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Blowers App</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>OnlyFans — Onboarding Mockup</title>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
+
 <body>
-    <div class="app-container">
-        <!-- Slide 1: Welcome -->
-        <div class="slide active" id="slide1">
-            <div class="background-image bg1"></div>
-            <div class="content">
-                <div class="bottom-content">
-                    <div class="welcome-text">
-                        <span class="welcome-part">Welcome to</span>
-                        <img src="images/logo-big.png" alt="Blowers" class="logo-inline">
+    <main class="wrap">
+        <section class="step active" id="step1" aria-label="Welcome">
+            <article class="panel">
+                <header class="hero">
+                    <div class="brand-logo">
+                        <img src="./images/Logo.svg" alt="OnlyFans Logo">
                     </div>
-                    <h2 class="app-title">OFFICIAL APP</h2>
-                    <p class="subtitle">Discover. Meet. Enjoy.</p>
-                    <button class="continue-btn" onclick="nextSlide()">CONTINUE</button>
+                    <h1>Welcome to Only Fans<br>Official App</h1>
+
+                    <div class="grid">
+                        <div class="card">
+                            <img src="./images/header1.png" alt="Content preview 1">
+                        </div>
+                        <div class="card">
+                            <img src="./images/header2.png" alt="Content preview 2">
+                        </div>
+                        <div class="card">
+                            <img src="./images/header3.png" alt="Content preview 3">
+                        </div>
+                        <div class="card">
+                            <img src="./images/header4.png" alt="Content preview 4">
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 32px;">
+                        <button class="btn" onclick="nextStep()">Continue</button>
+                    </div>
+
+                    <nav class="footer-links" aria-label="Legal links">
+                        <a href="#">Terms of Use</a>
+                        <a href="#">Billing</a>
+                        <a href="#">Privacy Policy</a>
+                    </nav>
+                </header>
+            </article>
+        </section>
+
+        <section class="step" id="step2" aria-label="Phone preview">
+            <article class="phone-col">
+                <section class="mock">
+                    <div class="screen">
+                        <img src="./images/smartphone1.png" alt="Main phone display" class="main-img">
+                        <img src="./images/girl1.png" alt="Overlay image 1" class="small-img small-img-1">
+                        <img src="./images/girl2.png" alt="Overlay image 2" class="small-img small-img-2">
+                        <img src="./images/girl3.png" alt="Overlay image 3" class="small-img small-img-3">
+                    </div>
+
+                    <div class="mock-main">
+                        <p class="title">Only Fans</h2>
+                            <p class="text" style="margin: 6px 0 2px;">A Place where your fantasies come true</p>
+                    </div>
+
+                    <div class="mock-footer">
+                        <button class="btn" onclick="nextStep()">Continue</button>
+                    </div>
+
+                    <nav class="footer-links" aria-label="Legal links">
+                        <a href="#">Terms of Use</a>
+                        <a href="#">Billing</a>
+                        <a href="#">Privacy Policy</a>
+                    </nav>
+                </section>
+            </article>
+        </section>
+
+        <section class="step" id="step3" aria-label="Age verification">
+            <article class="age-panel">
+                <section class="age-card">
+                    <div class="onlyfans-image">
+                        <img src="./images/smartphone2.png" alt="Age verification phone">
+                    </div>
+                    <p class="title">Only Fans</h2>
+                        <p class="text" style="margin: 6px 0 2px;">Warning 18+ only</p>
+                        <p class="secondary-text">We need to make sure you're over 18</p>
+
+                        <div class="age-card-btn">
+                            <button class="btn" onclick="nextStep()">Age Verification</button>
+                        </div>
+
+                        <nav class="footer-links" aria-label="Legal links">
+                            <a href="#">Terms of Use</a>
+                            <a href="#">Billing</a>
+                            <a href="#">Privacy Policy</a>
+                        </nav>
+                </section>
+            </article>
+        </section>
+
+        <section class="step" id="step4" aria-label="OnlyFans interface">
+            <article class="onlyfans-interface">
+                <div class="onlyfans-image">
+                    <img src="./images/smartphone2.png" alt="OnlyFans interface phone">
                 </div>
-            </div>
-        </div>
+                <div class="landing-content">
+                    <p class="title">Only Fans</h2>
+                        <p class="text">Join Only Fans in one step</p>
+                        
+                            <div class="field">
+                                <input placeholder="Your e-mail" class="email-input" id="email" name="email"
+                                    type="email" autocomplete="off" required>
+                                <div id="msg" class="error" aria-live="polite"></div>
 
-        <!-- Slide 2: Match -->
-        <div class="slide" id="slide2">
-            <div class="background-image bg2"></div>
-            <div class="content">
-                <div class="slide2-content">
-                    <h2 class="match-title">A match</h2>
-                    <h2 class="taste-title">FOR EVERY <span class="taste-highlight">TASTE</span></h2>
-                    <p class="match-subtitle">No judgement and no hold barried</p>
-                    <button class="continue-btn" onclick="nextSlide()">CONTINUE</button>
+                                <button class="btn email-button " type="submit" id="submitBtn" disabled
+                                    onclick="if (document.getElementById('email').checkValidity())">
+                                    <a class="link"
+                                        href="https://ef-to-wz.com/tds/ae?tds_campaign=s7788kru&tdsId=s7788kru_r&s1=int&utm_source=int&utm_term=2&p7={p7}&_fData={_fData}&clickid={clickid}&subid={subid}&subid2={subid2}&affid=cf9f103c">
+                                        Continue
+                                    </a>
+                                </button>
+                            </div>
+                        
+                        <nav class="footer-links-bottom" aria-label="Legal links">
+                            <a href="#">Terms of Use</a>
+                            <a href="#">Billing</a>
+                            <a href="#">Privacy Policy</a>
+                        </nav>
                 </div>
-            </div>
-        </div>
+            </article>
+        </section>
+    </main>
 
-        <!-- Slide 3: Join -->
-        <div class="slide" id="slide3">
-            <div class="background-image bg3"></div>
-            <div class="content">
-                <div class="join-text">
-                    <span class="join-part">JOIN</span>
-                    <img src="images/logo-big.png" alt="Logo" class="logo-inline">
-                    <span class="join-part">NOW</span>
-                </div>
-                
-                <input type="email" class="email-input" id="emailInput" placeholder="Enter your email">
-                <button class="continue-btn" id="continueBtn3" onclick="nextSlideWithEmail()" disabled>CONTINUE</button>
-            </div>
-        </div>
-
-        <!-- Slide 4: Age Verification -->
-        <div class="slide" id="slide4">
-            <div class="background-image bg4"></div>
-            <div class="content">
-                <h1 class="warning-title">Warning</h1>
-                <h2 class="age-title">ONLY <span class="age-highlight">18+</span></h2>
-                <p class="age-subtitle">We need to make sure you're over 18</p>
-                
-                <button class="continue-btn age-verification-btn" onclick="redirectToSite()">Age Verification</button>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-    </script>
-    <script defer src="/_vercel/insights/script.js"></script>
-    <script>
-        window.vaTrack = function(eventName, properties) {
-            if (typeof window.va === 'function') {
-                window.va('event', { name: eventName, data: properties || {} });
-                console.log('Vercel Analytics Event Sent:', eventName, properties);
-            } else {
-                console.warn('Vercel Analytics not loaded yet');
-            }
-        };
-    </script>
-    <script src="script.js"></script>
+    <script src="js/script.js"></script>
 </body>
+
 </html>
