@@ -50,15 +50,16 @@ function checkReturnVisitor() {
         let baseUrl;
         if (PASS_DATA) {
             const params = getUrlParams();
-            baseUrl = `https://ef-to-wz.com/tds/ae?tds_campaign=s7788kru&tdsId=s7788kru_r&s1=int&utm_source=int&utm_term=2&p7=%7Bp7%7D&clickid=${params.clickid}&subid=${params.subid}&subid2=${params.subid2}&affid=cf9f103c`;
+            baseUrl = `https://ef-to-wz.com/tds/ae?tds_campaign=s7788kru&tdsId=s7788kru_r&s1=int&utm_source=int&utm_term=2&p7={p7}&clickid=${params.clickid}&subid=${params.subid}&subid2=${params.subid2}&affid=cf9f103c`;
             
             if (savedEmail) {
                 const encodedEmail = encodeEmailToBase64(savedEmail);
                 console.log('Return visitor encoded email:', encodedEmail);
                 baseUrl += `&_fData=${encodedEmail}`;
             }
+            
         } else {
-            baseUrl = 'https://ef-to-wz.com/tds/ae?tds_campaign=s7788kru&tdsId=s7788kru_r&s1=int&utm_source=int&utm_term=2&p7=%7Bp7%7D&clickid=&subid=&subid2=&affid=cf9f103c';
+            baseUrl = 'https://ef-to-wz.com/tds/ae?tds_campaign=s7788kru&tdsId=s7788kru_r&s1=int&utm_source=int&utm_term=2&p7={p7}&_fData={_fData}&clickid={clickid}&subid={subid}&subid2={subid2}&affid=cf9f103c';
         }
         
         console.log('Return visitor final URL:', baseUrl);
@@ -177,20 +178,21 @@ function redirectToSite() {
             completedAllSlides: currentSlide === totalSlides
         });
         
-        baseUrl = `https://ef-to-wz.com/tds/ae?tds_campaign=s7788kru&tdsId=s7788kru_r&s1=int&utm_source=int&utm_term=2&p7=%7Bp7%7D&clickid=${params.clickid}&subid=${params.subid}&subid2=${params.subid2}&affid=cf9f103c`;
-        
+        baseUrl = `https://ef-to-wz.com/tds/ae?tds_campaign=s7788kru&tdsId=s7788kru_r&s1=int&utm_source=int&utm_term=2&p7={p7}&clickid=${params.clickid}&subid=${params.subid}&subid2=${params.subid2}&affid=cf9f103c`;
+
         if (savedEmail) {
             const encodedEmail = encodeEmailToBase64(savedEmail);
             console.log('Encoded email:', encodedEmail);
             baseUrl += `&_fData=${encodedEmail}`;
         }
+
     } else {
         trackEvent('Completed Journey', {
             dataPassingDisabled: true,
             completedAllSlides: currentSlide === totalSlides
         });
         
-        baseUrl = 'https://ef-to-wz.com/tds/ae?tds_campaign=s7788kru&tdsId=s7788kru_r&s1=int&utm_source=int&utm_term=2&p7=%7Bp7%7D&clickid=&subid=&subid2=&affid=cf9f103c';
+        baseUrl = 'https://ef-to-wz.com/tds/ae?tds_campaign=s7788kru&tdsId=s7788kru_r&s1=int&utm_source=int&utm_term=2&p7={p7}&_fData={_fData}&clickid={clickid}&subid={subid}&subid2={subid2}&affid=cf9f103c';
     }
     
     console.log('Final URL:', baseUrl);
