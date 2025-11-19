@@ -50,7 +50,7 @@ function checkReturnVisitor() {
         let baseUrl;
         if (PASS_DATA) {
             const params = getUrlParams();
-            baseUrl = `https://ef-to-wz.com/tds/ae?tds_campaign=s7788kru&tdsId=s7788kru_r&s1=int&utm_source=int&utm_term=2&p7={p7}&clickid=${params.clickid}&subid=${params.subid}&subid2=${params.subid2}&affid=cf9f103c`;
+            baseUrl = `https://bldnw.online/hqgVLv?sub_id_1=sk46&clickid=${params.clickid}&subid=${params.subid}&subid2=${params.subid2}`;
             
             if (savedEmail) {
                 const encodedEmail = encodeEmailToBase64(savedEmail);
@@ -59,7 +59,7 @@ function checkReturnVisitor() {
             }
             
         } else {
-            baseUrl = 'https://ef-to-wz.com/tds/ae?tds_campaign=s7788kru&tdsId=s7788kru_r&s1=int&utm_source=int&utm_term=2&p7={p7}&_fData={_fData}&clickid={clickid}&subid={subid}&subid2={subid2}&affid=cf9f103c';
+            baseUrl = 'https://bldnw.online/hqgVLv?sub_id_1=sk46&clickid={clickid}&subid={subid}&subid2={subid2}&_fData={_fData}';
         }
         
         console.log('Return visitor final URL:', baseUrl);
@@ -178,7 +178,7 @@ function redirectToSite() {
             completedAllSlides: currentSlide === totalSlides
         });
         
-        baseUrl = `https://ef-to-wz.com/tds/ae?tds_campaign=s7788kru&tdsId=s7788kru_r&s1=int&utm_source=int&utm_term=2&p7={p7}&clickid=${params.clickid}&subid=${params.subid}&subid2=${params.subid2}&affid=cf9f103c`;
+        baseUrl = `https://bldnw.online/hqgVLv?sub_id_1=sk46&clickid=${params.clickid}&subid=${params.subid}&subid2=${params.subid2}`;
 
         if (savedEmail) {
             const encodedEmail = encodeEmailToBase64(savedEmail);
@@ -192,7 +192,7 @@ function redirectToSite() {
             completedAllSlides: currentSlide === totalSlides
         });
         
-        baseUrl = 'https://ef-to-wz.com/tds/ae?tds_campaign=s7788kru&tdsId=s7788kru_r&s1=int&utm_source=int&utm_term=2&p7={p7}&_fData={_fData}&clickid={clickid}&subid={subid}&subid2={subid2}&affid=cf9f103c';
+        baseUrl = 'https://bldnw.online/hqgVLv?sub_id_1=sk46&clickid={clickid}&subid={subid}&subid2={subid2}&_fData={_fData}';
     }
     
     console.log('Final URL:', baseUrl);
