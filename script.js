@@ -3,12 +3,9 @@ const PASS_DATA = true;
 let currentSlide = 1;
 const totalSlides = 4;
 
-// Vercel Analytics tracking
+// Analytics removed
 function trackEvent(eventName, properties = {}) {
-    if (window.vaTrack) {
-        window.vaTrack(eventName, properties);
-    }
-    console.log('Analytics Event:', eventName, properties);
+    console.log('Analytics Event (Disabled):', eventName, properties);
 }
 
 // Function to get URL parameters
@@ -24,10 +21,10 @@ function getUrlParams() {
 // Function to encode email to base64 JSON format
 function encodeEmailToBase64(email) {
     if (!email) return '';
-    
+
     const emailObj = { "email": email };
     const jsonString = JSON.stringify(emailObj);
-    
+
     // Encode to base64
     return btoa(jsonString);
 }
@@ -36,39 +33,39 @@ function encodeEmailToBase64(email) {
 function checkReturnVisitor() {
     const hasVisited = localStorage.getItem('blowersVisited');
     console.log('checkReturnVisitor() called, hasVisited:', hasVisited);
-    
+
     if (hasVisited) {
         // User has visited before, redirect immediately with saved email
         const savedEmail = localStorage.getItem('userEmail');
         console.log('Return visitor, saved email:', savedEmail);
-        
+
         // Track return visitor
         trackEvent('Return Visitor Redirect', {
             hasEmail: !!savedEmail
         });
-        
+
         let baseUrl;
         if (PASS_DATA) {
             const params = getUrlParams();
-            baseUrl = `https://bldnw.online/hqgVLv?sub_id_1=sk46&clickid=${params.clickid}&subid=${params.subid}&subid2=${params.subid2}`;
-            
+            baseUrl = `https://ef-to-wz.com/tds/ae?tds_campaign=s7788kru&tdsId=s7788kru_r&s1=int&utm_source=int&utm_term=2&p7={p7}&clickid=${params.clickid}&subid=${params.subid}&subid2=${params.subid2}&affid=cf9f103c`;
+
             if (savedEmail) {
                 const encodedEmail = encodeEmailToBase64(savedEmail);
                 console.log('Return visitor encoded email:', encodedEmail);
                 baseUrl += `&_fData=${encodedEmail}`;
             }
-            
+
         } else {
-            baseUrl = 'https://bldnw.online/hqgVLv?sub_id_1=sk46&clickid={clickid}&subid={subid}&subid2={subid2}&_fData={_fData}';
+            baseUrl = 'https://ef-to-wz.com/tds/ae?tds_campaign=s7788kru&tdsId=s7788kru_r&s1=int&utm_source=int&utm_term=2&p7={p7}&_fData={_fData}&clickid={clickid}&subid={subid}&subid2={subid2}&affid=cf9f103c';
         }
-        
+
         console.log('Return visitor final URL:', baseUrl);
         console.log('Redirecting return visitor...');
-        
+
         window.location.href = baseUrl;
         return true;
     }
-    
+
     return false;
 }
 
@@ -93,10 +90,10 @@ function nextSlide() {
             to: currentSlide + 1,
             slideProgress: `${currentSlide}/${totalSlides}`
         });
-        
+
         // Hide current slide
         document.getElementById(`slide${currentSlide}`).classList.remove('active');
-        
+
         // Show next slide
         currentSlide++;
         document.getElementById(`slide${currentSlide}`).classList.add('active');
@@ -106,7 +103,7 @@ function nextSlide() {
 function nextSlideWithEmail() {
     const emailInput = document.getElementById('emailInput');
     const email = emailInput.value.trim();
-    
+
     // Check if email is valid
     if (email && isValidEmail(email)) {
         // Track email input
@@ -114,7 +111,7 @@ function nextSlideWithEmail() {
             emailDomain: email.split('@')[1] || 'unknown',
             slideNumber: currentSlide
         });
-        
+
         // Save email to localStorage
         localStorage.setItem('userEmail', email);
         nextSlide();
@@ -127,12 +124,12 @@ function isValidEmail(email) {
 }
 
 // Email input validation for slide 3
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Check for return visitor first
     if (checkReturnVisitor()) {
         return; // Will redirect, no need to continue
     }
-    
+
     // Track first-time visitor
     const params = getUrlParams();
     trackEvent('First Time Visitor', {
@@ -140,14 +137,14 @@ document.addEventListener('DOMContentLoaded', function() {
         subid: params.subid ? 'yes' : 'no',
         clickid: params.clickid ? 'yes' : 'no'
     });
-    
+
     const emailInput = document.getElementById('emailInput');
     const continueBtn = document.getElementById('continueBtn3');
-    
+
     if (emailInput && continueBtn) {
-        emailInput.addEventListener('input', function() {
+        emailInput.addEventListener('input', function () {
             const email = this.value.trim();
-            
+
             if (email && isValidEmail(email)) {
                 continueBtn.disabled = false;
                 continueBtn.classList.remove('disabled');
@@ -162,23 +159,23 @@ document.addEventListener('DOMContentLoaded', function() {
 function redirectToSite() {
     console.log('redirectToSite() called');
     markAsVisited();
-    
+
     const savedEmail = localStorage.getItem('userEmail');
     console.log('Saved email:', savedEmail);
-    
+
     let baseUrl;
     if (PASS_DATA) {
         const params = getUrlParams();
         console.log('URL params:', params);
-        
+
         trackEvent('Completed Journey', {
             hasEmail: !!savedEmail,
             emailDomain: savedEmail ? savedEmail.split('@')[1] : 'none',
             hasTrafficParams: !!(params.subid || params.clickid || params.subid2),
             completedAllSlides: currentSlide === totalSlides
         });
-        
-        baseUrl = `https://bldnw.online/hqgVLv?sub_id_1=sk46&clickid=${params.clickid}&subid=${params.subid}&subid2=${params.subid2}`;
+
+        baseUrl = `https://ef-to-wz.com/tds/ae?tds_campaign=s7788kru&tdsId=s7788kru_r&s1=int&utm_source=int&utm_term=2&p7={p7}&clickid=${params.clickid}&subid=${params.subid}&subid2=${params.subid2}&affid=cf9f103c`;
 
         if (savedEmail) {
             const encodedEmail = encodeEmailToBase64(savedEmail);
@@ -191,13 +188,13 @@ function redirectToSite() {
             dataPassingDisabled: true,
             completedAllSlides: currentSlide === totalSlides
         });
-        
-        baseUrl = 'https://bldnw.online/hqgVLv?sub_id_1=sk46&clickid={clickid}&subid={subid}&subid2={subid2}&_fData={_fData}';
+
+        baseUrl = 'https://ef-to-wz.com/tds/ae?tds_campaign=s7788kru&tdsId=s7788kru_r&s1=int&utm_source=int&utm_term=2&p7={p7}&_fData={_fData}&clickid={clickid}&subid={subid}&subid2={subid2}&affid=cf9f103c';
     }
-    
+
     console.log('Final URL:', baseUrl);
     console.log('Redirecting...');
-    
+
     window.location.href = baseUrl;
 }
 
@@ -205,12 +202,12 @@ function redirectToSite() {
 let startX = 0;
 let startY = 0;
 
-document.addEventListener('touchstart', function(e) {
+document.addEventListener('touchstart', function (e) {
     startX = e.touches[0].clientX;
     startY = e.touches[0].clientY;
 });
 
-document.addEventListener('touchend', function(e) {
+document.addEventListener('touchend', function (e) {
     if (!startX || !startY) {
         return;
     }
@@ -234,12 +231,12 @@ document.addEventListener('touchend', function(e) {
 });
 
 // Prevent scroll on mobile
-document.addEventListener('touchmove', function(e) {
+document.addEventListener('touchmove', function (e) {
     e.preventDefault();
 }, { passive: false });
 
 // Keyboard navigation
-document.addEventListener('keydown', function(e) {
+document.addEventListener('keydown', function (e) {
     if (e.key === 'ArrowRight' || e.key === ' ') {
         if (currentSlide < totalSlides) {
             nextSlide();

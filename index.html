@@ -68,20 +68,7 @@
         </div>
     </div>
 
-    <script>
-        window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-    </script>
-    <script defer src="/_vercel/insights/script.js"></script>
-    <script>
-        window.vaTrack = function(eventName, properties) {
-            if (typeof window.va === 'function') {
-                window.va('event', { name: eventName, data: properties || {} });
-                console.log('Vercel Analytics Event Sent:', eventName, properties);
-            } else {
-                console.warn('Vercel Analytics not loaded yet');
-            }
-        };
-    </script>
+
     <script src="script.js"></script>
 </body>
 </html>
