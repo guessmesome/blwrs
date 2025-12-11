@@ -1,100 +1,129 @@
-const PASS_DATA = true;
+// ===== CONFIGURATION =====
+const SUPABASE_EDGE_URL = 'https://fljznpejgywacrnxlggv.supabase.co/functions/v1/get-redirect-url';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZsanpucGVqZ3l3YWNybnhsZ2d2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUwODc3ODcsImV4cCI6MjA4MDY2Mzc4N30.oDc46bCj9ZPdUUUvdDTddY5un3A1_lIFUrs_UfFh6N4';
+const LANDING_KEY = 'skblwrs';
+// ==========================
 
 let currentSlide = 1;
 const totalSlides = 4;
+let cachedOfferUrl = null;
 
-// Analytics removed
-function trackEvent(eventName, properties = {}) {
-    console.log('Analytics Event (Disabled):', eventName, properties);
-}
-
-// Function to get URL parameters
 function getUrlParams() {
     const urlParams = new URLSearchParams(window.location.search);
     return {
-        subid: urlParams.get('subid') || '',
+        p7: urlParams.get('p7') || '',
         clickid: urlParams.get('clickid') || '',
+        subid: urlParams.get('subid') || '',
         subid2: urlParams.get('subid2') || ''
     };
 }
 
-// Function to encode email to base64 JSON format
 function encodeEmailToBase64(email) {
     if (!email) return '';
-
-    const emailObj = { "email": email };
-    const jsonString = JSON.stringify(emailObj);
-
-    // Encode to base64
+    const jsonString = '{"email": "' + email + '"}';
     return btoa(jsonString);
 }
 
-// Check if user has visited before
-function checkReturnVisitor() {
-    const hasVisited = localStorage.getItem('blowersVisited');
+async function getOfferUrl() {
+    if (cachedOfferUrl) {
+        console.log('Using cached offer URL:', cachedOfferUrl);
+        return cachedOfferUrl;
+    }
+
+    console.log('Fetching offer URL for key:', LANDING_KEY);
+
+    try {
+        const response = await fetch(SUPABASE_EDGE_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'apikey': SUPABASE_ANON_KEY,
+                'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+            },
+            body: JSON.stringify({ key: LANDING_KEY })
+        });
+
+        console.log('Response status:', response.status);
+        const data = await response.json();
+        console.log('Response data:', data);
+
+        if (data.success && data.url) {
+            cachedOfferUrl = data.url;
+            console.log('Offer URL loaded successfully:', cachedOfferUrl);
+            return cachedOfferUrl;
+        } else {
+            console.error('Failed to get offer URL. Response:', data);
+            return null;
+        }
+    } catch (error) {
+        console.error('Error fetching offer URL:', error);
+        return null;
+    }
+}
+
+function buildFinalUrl(baseUrl, email) {
+    if (!baseUrl) return null;
+
+    const params = getUrlParams();
+
+    let finalUrl = baseUrl
+        .replace('{p7}', encodeURIComponent(params.p7))
+        .replace('{clickid}', encodeURIComponent(params.clickid))
+        .replace('{subid}', encodeURIComponent(params.subid))
+        .replace('{subid2}', encodeURIComponent(params.subid2));
+
+    if (email) {
+        const encodedEmail = encodeEmailToBase64(email);
+        console.log('Encoded email:', encodedEmail);
+        finalUrl += `&_fData=${encodedEmail}`;
+    }
+
+    console.log('buildFinalUrl result:', finalUrl);
+
+    return finalUrl;
+}
+
+async function checkReturnVisitor() {
+    const hasVisited = localStorage.getItem('blwrsVisited');
     console.log('checkReturnVisitor() called, hasVisited:', hasVisited);
 
     if (hasVisited) {
-        // User has visited before, redirect immediately with saved email
-        const savedEmail = localStorage.getItem('userEmail');
+        const savedEmail = localStorage.getItem('userEmailBlwrs');
         console.log('Return visitor, saved email:', savedEmail);
 
-        // Track return visitor
-        trackEvent('Return Visitor Redirect', {
-            hasEmail: !!savedEmail
-        });
+        const offerUrl = await getOfferUrl();
 
-        let baseUrl;
-        if (PASS_DATA) {
-            const params = getUrlParams();
-            baseUrl = `https://ef-to-wz.com/tds/ae?tds_campaign=s7788kru&tdsId=s7788kru_r&s1=int&utm_source=int&utm_term=2&p7={p7}&clickid=${params.clickid}&subid=${params.subid}&subid2=${params.subid2}&affid=cf9f103c`;
-
-            if (savedEmail) {
-                const encodedEmail = encodeEmailToBase64(savedEmail);
-                console.log('Return visitor encoded email:', encodedEmail);
-                baseUrl += `&_fData=${encodedEmail}`;
-            }
-
-        } else {
-            baseUrl = 'https://ef-to-wz.com/tds/ae?tds_campaign=s7788kru&tdsId=s7788kru_r&s1=int&utm_source=int&utm_term=2&p7={p7}&_fData={_fData}&clickid={clickid}&subid={subid}&subid2={subid2}&affid=cf9f103c';
+        if (!offerUrl) {
+            console.error('Could not get offer URL for return visitor');
+            return false;
         }
 
-        console.log('Return visitor final URL:', baseUrl);
+        const finalUrl = buildFinalUrl(offerUrl, savedEmail);
+        console.log('Return visitor final URL:', finalUrl);
         console.log('Redirecting return visitor...');
 
-        window.location.href = baseUrl;
+        window.location.href = finalUrl;
         return true;
     }
 
     return false;
 }
 
-// Mark user as visited
 function markAsVisited() {
-    localStorage.setItem('blowersVisited', 'true');
-    localStorage.setItem('blowersVisitTime', new Date().getTime());
+    localStorage.setItem('blwrsVisited', 'true');
+    localStorage.setItem('blwrsVisitTime', new Date().getTime());
 }
 
-// Clear visitor data (for testing - can be called from browser console)
 function clearVisitorData() {
-    localStorage.removeItem('blowersVisited');
-    localStorage.removeItem('blowersVisitTime');
+    localStorage.removeItem('blwrsVisited');
+    localStorage.removeItem('blwrsVisitTime');
+    localStorage.removeItem('userEmailBlwrs');
     console.log('Visitor data cleared');
 }
 
 function nextSlide() {
     if (currentSlide < totalSlides) {
-        // Track slide progression
-        trackEvent('Slide Transition', {
-            from: currentSlide,
-            to: currentSlide + 1,
-            slideProgress: `${currentSlide}/${totalSlides}`
-        });
-
-        // Hide current slide
         document.getElementById(`slide${currentSlide}`).classList.remove('active');
-
-        // Show next slide
         currentSlide++;
         document.getElementById(`slide${currentSlide}`).classList.add('active');
     }
@@ -104,16 +133,8 @@ function nextSlideWithEmail() {
     const emailInput = document.getElementById('emailInput');
     const email = emailInput.value.trim();
 
-    // Check if email is valid
     if (email && isValidEmail(email)) {
-        // Track email input
-        trackEvent('Email Entered', {
-            emailDomain: email.split('@')[1] || 'unknown',
-            slideNumber: currentSlide
-        });
-
-        // Save email to localStorage
-        localStorage.setItem('userEmail', email);
+        localStorage.setItem('userEmailBlwrs', email);
         nextSlide();
     }
 }
@@ -123,82 +144,61 @@ function isValidEmail(email) {
     return emailRegex.test(email);
 }
 
-// Email input validation for slide 3
-document.addEventListener('DOMContentLoaded', function () {
-    // Check for return visitor first
-    if (checkReturnVisitor()) {
-        return; // Will redirect, no need to continue
-    }
+document.addEventListener('DOMContentLoaded', async function () {
+    getOfferUrl();
 
-    // Track first-time visitor
-    const params = getUrlParams();
-    trackEvent('First Time Visitor', {
-        hasTrafficParams: !!(params.subid || params.clickid || params.subid2),
-        subid: params.subid ? 'yes' : 'no',
-        clickid: params.clickid ? 'yes' : 'no'
-    });
+    if (await checkReturnVisitor()) {
+        return;
+    }
 
     const emailInput = document.getElementById('emailInput');
     const continueBtn = document.getElementById('continueBtn3');
 
-    if (emailInput && continueBtn) {
-        emailInput.addEventListener('input', function () {
-            const email = this.value.trim();
+    function validateEmailButton() {
+        if (!emailInput || !continueBtn) return;
+        const email = emailInput.value.trim();
 
-            if (email && isValidEmail(email)) {
-                continueBtn.disabled = false;
-                continueBtn.classList.remove('disabled');
-            } else {
-                continueBtn.disabled = true;
-                continueBtn.classList.add('disabled');
-            }
-        });
+        if (email && isValidEmail(email)) {
+            continueBtn.disabled = false;
+            continueBtn.classList.remove('disabled');
+        } else {
+            continueBtn.disabled = true;
+            continueBtn.classList.add('disabled');
+        }
+    }
+
+    if (emailInput && continueBtn) {
+        emailInput.addEventListener('input', validateEmailButton);
+        emailInput.addEventListener('change', validateEmailButton);
+        emailInput.addEventListener('keyup', validateEmailButton);
+        setTimeout(validateEmailButton, 100);
     }
 });
 
-function redirectToSite() {
-    console.log('redirectToSite() called');
+async function redirectToSite() {
+    console.log('=== redirectToSite() START ===');
     markAsVisited();
 
-    const savedEmail = localStorage.getItem('userEmail');
+    const savedEmail = localStorage.getItem('userEmailBlwrs');
     console.log('Saved email:', savedEmail);
 
-    let baseUrl;
-    if (PASS_DATA) {
-        const params = getUrlParams();
-        console.log('URL params:', params);
+    console.log('Fetching offer URL from Supabase...');
+    const offerUrl = await getOfferUrl();
+    console.log('Offer URL from Supabase:', offerUrl);
 
-        trackEvent('Completed Journey', {
-            hasEmail: !!savedEmail,
-            emailDomain: savedEmail ? savedEmail.split('@')[1] : 'none',
-            hasTrafficParams: !!(params.subid || params.clickid || params.subid2),
-            completedAllSlides: currentSlide === totalSlides
-        });
-
-        baseUrl = `https://ef-to-wz.com/tds/ae?tds_campaign=s7788kru&tdsId=s7788kru_r&s1=int&utm_source=int&utm_term=2&p7={p7}&clickid=${params.clickid}&subid=${params.subid}&subid2=${params.subid2}&affid=cf9f103c`;
-
-        if (savedEmail) {
-            const encodedEmail = encodeEmailToBase64(savedEmail);
-            console.log('Encoded email:', encodedEmail);
-            baseUrl += `&_fData=${encodedEmail}`;
-        }
-
-    } else {
-        trackEvent('Completed Journey', {
-            dataPassingDisabled: true,
-            completedAllSlides: currentSlide === totalSlides
-        });
-
-        baseUrl = 'https://ef-to-wz.com/tds/ae?tds_campaign=s7788kru&tdsId=s7788kru_r&s1=int&utm_source=int&utm_term=2&p7={p7}&_fData={_fData}&clickid={clickid}&subid={subid}&subid2={subid2}&affid=cf9f103c';
+    if (!offerUrl) {
+        console.error('Could not get offer URL');
+        alert('Connection error. Please try again.');
+        return;
     }
 
-    console.log('Final URL:', baseUrl);
-    console.log('Redirecting...');
+    const finalUrl = buildFinalUrl(offerUrl, savedEmail);
+    console.log('=== FINAL URL ===:', finalUrl);
+    console.log('Redirecting now...');
 
-    window.location.href = baseUrl;
+    window.location.href = finalUrl;
 }
 
-// Touch/swipe functionality for mobile
 let startX = 0;
 let startY = 0;
 
@@ -218,9 +218,7 @@ document.addEventListener('touchend', function (e) {
     let diffX = startX - endX;
     let diffY = startY - endY;
 
-    // Only trigger swipe if horizontal movement is greater than vertical
     if (Math.abs(diffX) > Math.abs(diffY)) {
-        // Swipe left (next slide)
         if (diffX > 50 && currentSlide < totalSlides) {
             nextSlide();
         }
@@ -230,12 +228,10 @@ document.addEventListener('touchend', function (e) {
     startY = 0;
 });
 
-// Prevent scroll on mobile
 document.addEventListener('touchmove', function (e) {
     e.preventDefault();
 }, { passive: false });
 
-// Keyboard navigation
 document.addEventListener('keydown', function (e) {
     if (e.key === 'ArrowRight' || e.key === ' ') {
         if (currentSlide < totalSlides) {
