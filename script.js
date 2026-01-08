@@ -8,6 +8,47 @@ let currentSlide = 1;
 const totalSlides = 4;
 let cachedOfferUrl = null;
 
+const imagesToPreload = [
+    'images/bg1.jpg',
+    'images/bg2.jpg',
+    'images/bg3.jpg',
+    'images/bg4.jpg',
+    'images/logo-big.png'
+];
+
+function preloadImages() {
+    return new Promise((resolve) => {
+        let loaded = 0;
+        const total = imagesToPreload.length;
+
+        imagesToPreload.forEach((src) => {
+            const img = new Image();
+            img.onload = img.onerror = () => {
+                loaded++;
+                if (loaded >= total) {
+                    resolve();
+                }
+            };
+            img.src = src;
+        });
+
+        setTimeout(resolve, 5000);
+    });
+}
+
+function hidePreloader() {
+    const preloader = document.getElementById('preloader');
+    if (preloader) {
+        preloader.classList.add('hidden');
+        setTimeout(() => {
+            const slide1 = document.getElementById('slide1');
+            if (slide1) {
+                slide1.classList.add('active', 'entering');
+            }
+        }, 100);
+    }
+}
+
 function getUrlParams() {
     const urlParams = new URLSearchParams(window.location.search);
     return {
@@ -123,9 +164,19 @@ function clearVisitorData() {
 
 function nextSlide() {
     if (currentSlide < totalSlides) {
-        document.getElementById(`slide${currentSlide}`).classList.remove('active');
-        currentSlide++;
-        document.getElementById(`slide${currentSlide}`).classList.add('active');
+        const currentSlideEl = document.getElementById(`slide${currentSlide}`);
+        const nextSlideEl = document.getElementById(`slide${currentSlide + 1}`);
+        
+        if (currentSlideEl && nextSlideEl) {
+            currentSlideEl.classList.remove('entering');
+            currentSlideEl.classList.add('exiting');
+            
+            setTimeout(() => {
+                currentSlideEl.classList.remove('active', 'exiting');
+                nextSlideEl.classList.add('active', 'entering');
+                currentSlide++;
+            }, 400);
+        }
     }
 }
 
@@ -150,6 +201,9 @@ document.addEventListener('DOMContentLoaded', async function () {
     if (await checkReturnVisitor()) {
         return;
     }
+
+    await preloadImages();
+    hidePreloader();
 
     const emailInput = document.getElementById('emailInput');
     const continueBtn = document.getElementById('continueBtn3');
