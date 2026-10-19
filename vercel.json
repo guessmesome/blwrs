@@ -1,15 +1,23 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "**/*",
-      "use": "@vercel/static"
+  "buildCommand": "node scripts/build.mjs",
+  "outputDirectory": "public",
+  "cleanUrls": true,
+  "functions": {
+    "api/analytics.js": {
+      "includeFiles": "server/**",
+      "maxDuration": 60
     }
+  },
+  "rewrites": [
+    { "source": "/analytics", "destination": "/api/analytics" },
+    { "source": "/analytics/", "destination": "/api/analytics" }
   ],
-  "routes": [
+  "headers": [
     {
-      "src": "/(.*)",
-      "dest": "/$1"
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" }
+      ]
     }
   ]
 }
